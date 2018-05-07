@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "frame.xzxj.com.mvpframe"
+        applicationId "com.xzxj.mvpframe"
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1

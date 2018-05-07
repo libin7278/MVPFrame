@@ -1,4 +1,4 @@
-package frame.xzxj.com.mvpframe;
+package com.xzxj.mvpframe;
 
 import org.junit.Test;
 

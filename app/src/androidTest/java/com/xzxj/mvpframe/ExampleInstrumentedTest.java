@@ -1,4 +1,4 @@
-package frame.xzxj.com.mvpframe;
+package com.xzxj.mvpframe;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("frame.xzxj.com.mvpframe", appContext.getPackageName());
+        assertEquals("com.xzxj.mvpframe", appContext.getPackageName());
     }
 }
