@@ -3,7 +3,7 @@ package com.xzxj.frame.integration.cache;
 import android.app.Application;
 import android.support.annotation.Nullable;
 
-import com.xzxj.frame.di.module.GlobalConfigModule;
+import com.xzxj.frame.injection.module.GlobalConfigModule;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

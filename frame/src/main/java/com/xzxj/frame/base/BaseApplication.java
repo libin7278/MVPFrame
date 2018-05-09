@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
 
 import com.xzxj.frame.base.proxy.AppLifecycles;
 import com.xzxj.frame.base.proxy.AppProxy;
-import com.xzxj.frame.di.component.AppComponent;
-import com.xzxj.frame.utils.ArmsUtils;
+import com.xzxj.frame.injection.component.AppComponent;
+import com.xzxj.frame.utils.FrameUtils;
 import com.xzxj.frame.utils.Preconditions;
 
 /**
@@ -56,7 +56,7 @@ public class BaseApplication extends Application implements App {
     /**
      * 将 {@link AppComponent} 返回出去, 供其它地方使用, {@link AppComponent} 接口中声明的方法所返回的实例, 在 {@link #getAppComponent()} 拿到对象后都可以直接使用
      *
-     * @see ArmsUtils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
+     * @see FrameUtils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
      * @return AppComponent
      */
     @NonNull

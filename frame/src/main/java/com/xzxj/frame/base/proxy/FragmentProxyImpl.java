@@ -22,7 +22,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.xzxj.frame.base.BaseActivity;
-import com.xzxj.frame.utils.ArmsUtils;
+import com.xzxj.frame.utils.FrameUtils;
 
 import org.simple.eventbus.EventBus;
 
@@ -63,7 +63,7 @@ public class FragmentProxyImpl implements FragmentProxy {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         if (iFragment.useEventBus())//如果要使用eventbus请将此方法返回true
             EventBus.getDefault().register(mFragment);//注册到事件主线
-        iFragment.setupFragmentComponent(ArmsUtils.obtainAppComponentFromContext(mFragment.getActivity()));
+        iFragment.setupFragmentComponent(FrameUtils.obtainAppComponentFromContext(mFragment.getActivity()));
     }
 
     @Override

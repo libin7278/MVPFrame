@@ -1,19 +1,16 @@
 package com.xzxj.frame.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.view.View;
-import com.trello.rxlifecycle2.android.ActivityEvent;
+
 import com.xzxj.frame.base.proxy.IActivity;
 import com.xzxj.frame.integration.cache.Cache;
 import com.xzxj.frame.integration.cache.CacheType;
 import com.xzxj.frame.integration.lifecycle.ActivityLifecycleable;
 import com.xzxj.frame.mvp.IPresenter;
-import com.xzxj.frame.utils.ArmsUtils;
+import com.xzxj.frame.utils.FrameUtils;
 
 import javax.inject.Inject;
 
@@ -43,7 +40,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     @Override
     public synchronized Cache<String, Object> provideCache() {
         if (mCache == null) {
-            mCache = ArmsUtils.obtainAppComponentFromContext(this).cacheFactory().build(CacheType.ACTIVITY_CACHE);
+            mCache = FrameUtils.obtainAppComponentFromContext(this).cacheFactory().build(CacheType.ACTIVITY_CACHE);
         }
         return mCache;
     }

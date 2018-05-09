@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.xzxj.frame.di.component;
+package com.xzxj.frame.injection.component;
 
 import android.app.Application;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.xzxj.frame.base.proxy.AppProxy;
-import com.xzxj.frame.di.module.AppModule;
-import com.xzxj.frame.di.module.ClientModule;
-import com.xzxj.frame.di.module.GlobalConfigModule;
+import com.xzxj.frame.injection.module.AppModule;
+import com.xzxj.frame.injection.module.ClientModule;
+import com.xzxj.frame.injection.module.GlobalConfigModule;
 import com.xzxj.frame.http.imageloader.ImageLoader;
 import com.xzxj.frame.integration.AppManager;
 import com.xzxj.frame.integration.IRepositoryManager;
 import com.xzxj.frame.integration.cache.Cache;
-import com.xzxj.frame.utils.ArmsUtils;
+import com.xzxj.frame.utils.FrameUtils;
 
 import java.io.File;
 
@@ -47,7 +47,7 @@ import okhttp3.OkHttpClient;
  *     desc  : 拥有接口的实现类即可调用对应的方法拿到 Dagger 提供的对应实例
  * </pre>
  *
- * @see ArmsUtils#obtainAppComponentFromContext(Context)
+ * @see FrameUtils#obtainAppComponentFromContext(Context)
  */
 @Singleton
 @Component(modules = {AppModule.class, ClientModule.class, GlobalConfigModule.class})

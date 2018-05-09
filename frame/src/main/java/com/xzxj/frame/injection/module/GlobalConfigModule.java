@@ -1,4 +1,4 @@
-package com.xzxj.frame.di.module;
+package com.xzxj.frame.injection.module;
 
 import android.app.Application;
 import android.support.annotation.NonNull;

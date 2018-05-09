@@ -14,7 +14,7 @@ import com.xzxj.frame.integration.cache.Cache;
 import com.xzxj.frame.integration.cache.CacheType;
 import com.xzxj.frame.integration.lifecycle.FragmentLifecycleable;
 import com.xzxj.frame.mvp.IPresenter;
-import com.xzxj.frame.utils.ArmsUtils;
+import com.xzxj.frame.utils.FrameUtils;
 
 import javax.inject.Inject;
 
@@ -42,7 +42,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Override
     public synchronized Cache<String, Object> provideCache() {
         if (mCache == null) {
-            mCache = ArmsUtils.obtainAppComponentFromContext(getActivity()).cacheFactory().build(CacheType.FRAGMENT_CACHE);
+            mCache = FrameUtils.obtainAppComponentFromContext(getActivity()).cacheFactory().build(CacheType.FRAGMENT_CACHE);
         }
         return mCache;
     }

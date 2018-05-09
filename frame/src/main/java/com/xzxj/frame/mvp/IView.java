@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.xzxj.frame.utils.ArmsUtils;
+import com.xzxj.frame.utils.FrameUtils;
 import com.xzxj.frame.utils.Preconditions;
 
 /**
@@ -44,7 +44,7 @@ public interface IView {
      */
     default void launchActivity(@NonNull Intent intent) {
         Preconditions.checkNotNull(intent);
-        ArmsUtils.startActivity(intent);
+        FrameUtils.startActivity(intent);
     }
 
     /**

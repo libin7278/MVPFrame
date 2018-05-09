@@ -2,7 +2,7 @@ package com.xzxj.frame.http.log;
 
 import android.text.TextUtils;
 
-import com.xzxj.frame.di.module.GlobalConfigModule;
+import com.xzxj.frame.injection.module.GlobalConfigModule;
 import com.xzxj.frame.utils.CharacterHandler;
 
 import java.util.List;

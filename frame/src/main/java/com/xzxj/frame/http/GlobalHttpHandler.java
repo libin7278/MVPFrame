@@ -15,7 +15,7 @@
  */
 package com.xzxj.frame.http;
 
-import com.xzxj.frame.di.module.GlobalConfigModule;
+import com.xzxj.frame.injection.module.GlobalConfigModule;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;

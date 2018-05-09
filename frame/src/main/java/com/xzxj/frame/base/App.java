@@ -3,7 +3,7 @@ package com.xzxj.frame.base;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-import com.xzxj.frame.di.component.AppComponent;
+import com.xzxj.frame.injection.component.AppComponent;
 
 /**
  * <pre>

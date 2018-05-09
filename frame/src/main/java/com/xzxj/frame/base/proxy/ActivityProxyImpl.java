@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.xzxj.frame.utils.ArmsUtils;
+import com.xzxj.frame.utils.FrameUtils;
 
 import org.simple.eventbus.EventBus;
 
@@ -37,7 +37,7 @@ public class ActivityProxyImpl implements ActivityProxy {
         }
 
         //这里提供 AppComponent 对象给 BaseActivity 的子类, 用于 Dagger2 的依赖注入
-        iActivity.setupActivityComponent(ArmsUtils.obtainAppComponentFromContext(mActivity));
+        iActivity.setupActivityComponent(FrameUtils.obtainAppComponentFromContext(mActivity));
     }
 
     @Override

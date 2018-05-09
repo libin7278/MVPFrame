@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.xzxj.frame.di.scope;
+package com.xzxj.frame.injection.scope;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

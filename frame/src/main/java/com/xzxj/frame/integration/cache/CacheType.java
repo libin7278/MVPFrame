@@ -5,7 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
-import com.xzxj.frame.di.component.AppComponent;
+import com.xzxj.frame.injection.component.AppComponent;
 import com.xzxj.frame.integration.RepositoryManager;
 
 /**

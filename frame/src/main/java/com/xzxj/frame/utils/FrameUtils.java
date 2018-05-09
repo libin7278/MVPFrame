@@ -21,14 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xzxj.frame.base.App;
-import com.xzxj.frame.di.component.AppComponent;
+import com.xzxj.frame.injection.component.AppComponent;
 import com.xzxj.frame.integration.AppManager;
 
 import java.security.MessageDigest;
 
 import static com.xzxj.frame.integration.AppManager.APP_EXIT;
 import static com.xzxj.frame.integration.AppManager.KILL_ALL;
-import static com.xzxj.frame.integration.AppManager.SHOW_SNACKBAR;
+import static com.xzxj.frame.integration.AppManager.SNACKER;
 import static com.xzxj.frame.integration.AppManager.START_ACTIVITY;
 
 /**
@@ -40,11 +40,11 @@ import static com.xzxj.frame.integration.AppManager.START_ACTIVITY;
  *     desc  : 一些框架常用的工具
  * </pre>
  */
-public class ArmsUtils {
+public class FrameUtils {
     static public Toast mToast;
 
 
-    private ArmsUtils() {
+    private FrameUtils() {
         throw new IllegalStateException("you can't instantiate me!");
     }
 
@@ -213,7 +213,7 @@ public class ArmsUtils {
      */
     public static void snackbarText(String text) {
         Message message = new Message();
-        message.what = SHOW_SNACKBAR;
+        message.what = SNACKER;
         message.obj = text;
         message.arg1 = 0;
         AppManager.post(message);
@@ -226,7 +226,7 @@ public class ArmsUtils {
      */
     public static void snackbarTextWithLong(String text) {
         Message message = new Message();
-        message.what = SHOW_SNACKBAR;
+        message.what = SNACKER;
         message.obj = text;
         message.arg1 = 1;
         AppManager.post(message);

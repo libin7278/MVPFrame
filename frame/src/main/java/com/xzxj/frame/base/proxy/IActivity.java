@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 
 import com.xzxj.frame.base.BaseActivity;
-import com.xzxj.frame.di.component.AppComponent;
+import com.xzxj.frame.injection.component.AppComponent;
 import com.xzxj.frame.integration.cache.Cache;
 
 import org.simple.eventbus.EventBus;

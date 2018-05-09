@@ -12,13 +12,13 @@ import android.support.v4.app.Fragment;
 
 import com.xzxj.frame.base.App;
 import com.xzxj.frame.base.BaseApplication;
-import com.xzxj.frame.di.component.AppComponent;
-import com.xzxj.frame.di.component.DaggerAppComponent;
-import com.xzxj.frame.di.module.GlobalConfigModule;
+import com.xzxj.frame.injection.component.AppComponent;
+import com.xzxj.frame.injection.component.DaggerAppComponent;
+import com.xzxj.frame.injection.module.GlobalConfigModule;
 import com.xzxj.frame.integration.ConfigModule;
 import com.xzxj.frame.integration.ManifestParser;
 import com.xzxj.frame.integration.cache.IntelligentCache;
-import com.xzxj.frame.utils.ArmsUtils;
+import com.xzxj.frame.utils.FrameUtils;
 import com.xzxj.frame.utils.Preconditions;
 
 import java.util.ArrayList;
@@ -176,7 +176,7 @@ public class AppProxy implements App, AppLifecycles {
      * 将 {@link AppComponent} 返回出去, 供其它地方使用, {@link AppComponent} 接口中声明的方法返回的实例, 在 {@link #getAppComponent()} 拿到对象后都可以直接使用
      *
      * @return AppComponent
-     * @see ArmsUtils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
+     * @see FrameUtils#obtainAppComponentFromContext(Context) 可直接获取 {@link AppComponent}
      */
     @NonNull
     @Override

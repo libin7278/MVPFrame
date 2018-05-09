@@ -10,6 +10,10 @@ import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import com.xzxj.frame.base.proxy.AppLifecycles;
+import com.xzxj.frame.widget.Snacker;
+import com.xzxj.frame.widget.Toaster;
+
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 import org.simple.eventbus.ThreadMode;
@@ -39,10 +43,12 @@ public final class AppManager {
     public static final String APPMANAGER_MESSAGE = "appmanager_message";
     //true 为不需要加入到 Activity 容器进行统一管理,默认为 false
     public static final String IS_NOT_ADD_ACTIVITY_LIST = "is_not_add_activity_list";
-    public static final int START_ACTIVITY = 5000;
-    public static final int SHOW_SNACKBAR = 5001;
-    public static final int KILL_ALL = 5002;
-    public static final int APP_EXIT = 5003;
+    public static final int START_ACTIVITY = 0x00000;
+    public static final int SNACKER = 0x00001;
+    public static final int TOASTER = 0x00002;
+    public static final int KILL_ALL = 0x00003;
+    public static final int APP_EXIT = 0x00004;
+
     @Inject
     Application mApplication;
     //管理所有存活的 Activity, 容器中的顺序仅仅是 Activity 的创建顺序, 并不能保证和 Activity 任务栈顺序一致
@@ -74,10 +80,17 @@ public final class AppManager {
                     break;
                 dispatchStart(message);
                 break;
-            case SHOW_SNACKBAR:
-                if (message.obj == null)
+            case SNACKER:
+                if (message.obj == null) {
                     break;
-                showSnackbar((String) message.obj, message.arg1 == 0 ? false : true);
+                }
+                snacker((String) message.obj);
+                break;
+            case TOASTER:
+                if (message.obj == null) {
+                    break;
+                }
+                toaster((String) message.obj);
                 break;
             case KILL_ALL:
                 killAll();
@@ -177,6 +190,32 @@ public final class AppManager {
         mActivityList = null;
         mCurrentActivity = null;
         mApplication = null;
+    }
+
+    /**
+     * 使用提示框
+     *
+     * @param message
+     */
+    public void snacker(String message) {
+        if (this.getCurrentActivity() == null) {
+            return;
+        }
+
+        Snacker.with(this.getCurrentActivity()).setMessage(message).show();
+    }
+
+    /**
+     * 使用提示框
+     *
+     * @param message
+     */
+    public void toaster(String message) {
+        if (this.getCurrentActivity() == null) {
+            return;
+        }
+
+        Toaster.with(this.getCurrentActivity()).setMessage(message).show();
     }
 
     /**

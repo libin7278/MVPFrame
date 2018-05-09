@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
 import com.xzxj.frame.base.proxy.AppLifecycles;
-import com.xzxj.frame.di.module.GlobalConfigModule;
+import com.xzxj.frame.injection.module.GlobalConfigModule;
 
 import java.util.List;
 

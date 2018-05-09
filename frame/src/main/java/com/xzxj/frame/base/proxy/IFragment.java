@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xzxj.frame.base.BaseFragment;
-import com.xzxj.frame.di.component.AppComponent;
+import com.xzxj.frame.injection.component.AppComponent;
 import com.xzxj.frame.integration.cache.Cache;
 
 import org.simple.eventbus.EventBus;

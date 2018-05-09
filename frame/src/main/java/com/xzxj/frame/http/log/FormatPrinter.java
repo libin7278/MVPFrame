@@ -1,6 +1,6 @@
 package com.xzxj.frame.http.log;
 
-import com.xzxj.frame.di.module.GlobalConfigModule;
+import com.xzxj.frame.injection.module.GlobalConfigModule;
 
 import java.util.List;
 
