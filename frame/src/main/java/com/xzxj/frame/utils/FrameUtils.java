@@ -62,7 +62,6 @@ public class FrameUtils {
         AbsoluteSizeSpan ass = new AbsoluteSizeSpan(size, true);
         // 附加属性到文本  
         ss.setSpan(ass, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
         // 设置hint  
         v.setHint(new SpannedString(ss)); // 一定要进行转换,否则属性会消失
     }
