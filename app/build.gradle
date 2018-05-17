@@ -37,6 +37,10 @@ dependencies {
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation rootProject.ext.dependencies["multidex"]
     implementation project(':frame')
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
+        exclude module: 'support-annotations'
+    }
 
     //Test
     debugImplementation rootProject.ext.dependencies["canary-debug"]

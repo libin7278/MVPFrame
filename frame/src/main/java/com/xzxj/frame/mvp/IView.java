@@ -1,12 +1,5 @@
 package com.xzxj.frame.mvp;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-
-import com.xzxj.frame.utils.FrameUtils;
-import com.xzxj.frame.utils.Preconditions;
-
 /**
  * <pre>
  *     author: libin
@@ -17,7 +10,6 @@ import com.xzxj.frame.utils.Preconditions;
  * </pre>
  */
 public interface IView {
-
     /**
      * 显示加载
      */
@@ -28,29 +20,5 @@ public interface IView {
      * 隐藏加载
      */
     default void hideLoading() {
-    }
-
-    /**
-     * 显示信息
-     *
-     * @param message 消息内容, 不能为 {@code null}
-     */
-    void showMessage(@NonNull String message);
-
-    /**
-     * 跳转 {@link Activity}
-     *
-     * @param intent {@code intent} 不能为 {@code null}
-     */
-    default void launchActivity(@NonNull Intent intent) {
-        Preconditions.checkNotNull(intent);
-        FrameUtils.startActivity(intent);
-    }
-
-    /**
-     * 杀死自己
-     */
-    default void killMyself() {
-
     }
 }

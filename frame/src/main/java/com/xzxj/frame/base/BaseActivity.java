@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.xzxj.frame.base.proxy.IActivity;
 import com.xzxj.frame.integration.cache.Cache;
 import com.xzxj.frame.integration.cache.CacheType;
@@ -16,6 +17,8 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.Subject;
 
 /**
  * <pre>
@@ -29,8 +32,9 @@ import butterknife.Unbinder;
  */
 public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements IActivity, ActivityLifecycleable {
     private Cache<String, Object> mCache;
-
     private Unbinder mUnbinder;
+    private final BehaviorSubject<ActivityEvent> mLifecycleSubject = BehaviorSubject.create();
+
 
     @Inject
     @Nullable
@@ -61,6 +65,13 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         }
         initData(savedInstanceState);
     }
+
+    @NonNull
+    @Override
+    public final Subject<ActivityEvent> provideLifecycleSubject() {
+        return mLifecycleSubject;
+    }
+
 
     @Override
     protected void onDestroy() {
