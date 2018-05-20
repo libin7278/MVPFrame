@@ -20,16 +20,14 @@ MVP框架
 
 >10、Okhttp
 
->11、Autolayout
+>11、Gson
 
->12、Gson
+>12、Butterknife
 
->13、Butterknife
+>13、Androideventbus
 
->14、Androideventbus
+>14、Logger
 
->15、Timber
+>15、Glide
 
->16、Glide
-
->17、LeakCanary
+>16、LeakCanary
