@@ -19,11 +19,11 @@ import com.xzxj.frame.utils.Preconditions;
  *     desc  : 基类
  * </pre>
  */
-public class BaseApplication extends Application implements App {
+public class App extends Application implements BaseApplication {
     private AppLifecycles mAppProxy;
 
     /**
-     * 这里会在 {@link BaseApplication#onCreate} 之前被调用,可以做一些较早的初始化
+     * 这里会在 {@link App#onCreate} 之前被调用,可以做一些较早的初始化
      * 常用于 MultiDex 以及插件化框架的初始化
      *
      * @param base
@@ -63,8 +63,8 @@ public class BaseApplication extends Application implements App {
     @Override
     public AppComponent getAppComponent() {
         Preconditions.checkNotNull(mAppProxy, "%s cannot be null", AppProxy.class.getName());
-        Preconditions.checkState(mAppProxy instanceof App, "%s must be implements %s", AppProxy.class.getName(), App.class.getName());
-        return ((App) mAppProxy).getAppComponent();
+        Preconditions.checkState(mAppProxy instanceof BaseApplication, "%s must be implements %s", AppProxy.class.getName(), BaseApplication.class.getName());
+        return ((BaseApplication) mAppProxy).getAppComponent();
     }
 
 }
