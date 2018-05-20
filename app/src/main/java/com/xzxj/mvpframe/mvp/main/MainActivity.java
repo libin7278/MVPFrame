@@ -1,5 +1,7 @@
 package com.xzxj.mvpframe.mvp.main;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,6 +40,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     Button moveNextButton;
 
     SecondFragment mSecondFragment;
+
+    public static void startMainActivity(Activity srcActivity) {
+        Intent intent = new Intent(srcActivity, MainActivity.class);
+        srcActivity.startActivity(intent);
+    }
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
