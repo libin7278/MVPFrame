@@ -1,6 +1,6 @@
-package com.xzxj.mvpframe.mvp.main;
+package com.xzxj.mvpframe.mvp.second;
 
-import com.xzxj.frame.injection.scope.ActivityScope;
+import com.xzxj.frame.injection.scope.FragmentScope;
 import com.xzxj.frame.integration.IRepositoryManager;
 import com.xzxj.frame.mvp.BaseModel;
 
@@ -15,16 +15,16 @@ import javax.inject.Inject;
  *     desc  : 展示 medel 的用法
  * </pre>
  */
-@ActivityScope
-public class MainModel extends BaseModel implements MainContract.Model {
+@FragmentScope
+public class SecondModel extends BaseModel implements SecondContract.Model {
 
     @Inject
-    public MainModel(IRepositoryManager repositoryManager) {
+    public SecondModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
     }
 
     @Override
-    public String getVersion() {
+    public String getDate() {
         return "模拟返回version ： 100";
     }
 }

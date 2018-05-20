@@ -10,8 +10,8 @@ import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
-import com.xzxj.frame.base.App;
 import com.xzxj.frame.base.BaseApplication;
+import com.xzxj.frame.base.App;
 import com.xzxj.frame.injection.component.AppComponent;
 import com.xzxj.frame.injection.component.DaggerAppComponent;
 import com.xzxj.frame.injection.module.GlobalConfigModule;
@@ -36,9 +36,9 @@ import javax.inject.Named;
  *     desc  : 代理 Application 的生命周期,在对应的生命周期,执行对应的逻辑
  * </pre>
  *
- * @see BaseApplication
+ * @see App
  */
-public class AppProxy implements App, AppLifecycles {
+public class AppProxy implements BaseApplication, AppLifecycles {
     private Application mApplication;
     private AppComponent mAppComponent;
     @Inject
@@ -113,7 +113,7 @@ public class AppProxy implements App, AppLifecycles {
         //注册回掉: 内存紧张时释放部分内存
         mApplication.registerComponentCallbacks(mComponentCallback);
 
-        //执行框架外部, 开发者扩展的 App onCreate 逻辑
+        //执行框架外部, 开发者扩展的 BaseApplication onCreate 逻辑
         for (AppLifecycles lifecycle : mAppLifecycles) {
             lifecycle.onCreate(mApplication);
         }
@@ -192,7 +192,7 @@ public class AppProxy implements App, AppLifecycles {
      * {@link ComponentCallbacks2} 是一个细粒度的内存回收管理回调
      * {@link Application}、{@link Activity}、{@link Service}、{@link ContentProvider}、{@link Fragment} 实现了 {@link ComponentCallbacks2} 接口
      * 开发者应该实现 {@link ComponentCallbacks2#onTrimMemory(int)} 方法, 细粒度 release 内存, 参数的值不同可以体现出不同程度的内存可用情况
-     * 响应 {@link ComponentCallbacks2#onTrimMemory(int)} 回调, 开发者的 App 会存活的更持久, 有利于用户体验
+     * 响应 {@link ComponentCallbacks2#onTrimMemory(int)} 回调, 开发者的 BaseApplication 会存活的更持久, 有利于用户体验
      * 不响应 {@link ComponentCallbacks2#onTrimMemory(int)} 回调, 系统 kill 掉进程的几率更大
      */
     private static class AppComponentCallbacks implements ComponentCallbacks2 {
@@ -205,7 +205,7 @@ public class AppProxy implements App, AppLifecycles {
         }
 
         /**
-         * 在你的 App 生命周期的任何阶段, {@link ComponentCallbacks2#onTrimMemory(int)} 发生的回调都预示着你设备的内存资源已经开始紧张
+         * 在你的 BaseApplication 生命周期的任何阶段, {@link ComponentCallbacks2#onTrimMemory(int)} 发生的回调都预示着你设备的内存资源已经开始紧张
          * 你应该根据 {@link ComponentCallbacks2#onTrimMemory(int)} 发生回调时的内存级别来进一步决定释放哪些资源
          * {@link ComponentCallbacks2#onTrimMemory(int)} 的回调可以发生在 {@link Application}、{@link Activity}、{@link Service}、{@link ContentProvider}、{@link Fragment}
          *
@@ -214,27 +214,27 @@ public class AppProxy implements App, AppLifecycles {
          */
         @Override
         public void onTrimMemory(int level) {
-            //状态1. 当开发者的 App 正在运行
+            //状态1. 当开发者的 BaseApplication 正在运行
             //设备开始运行缓慢, 不会被 kill, 也不会被列为可杀死的, 但是设备此时正运行于低内存状态下, 系统开始触发杀死 LRU 列表中的进程的机制
 //                case TRIM_MEMORY_RUNNING_MODERATE:
 
 
-            //设备运行更缓慢了, 不会被 kill, 但请你回收 unused 资源, 以便提升系统的性能, 你应该释放不用的资源用来提升系统性能 (但是这也会直接影响到你的 App 的性能)
+            //设备运行更缓慢了, 不会被 kill, 但请你回收 unused 资源, 以便提升系统的性能, 你应该释放不用的资源用来提升系统性能 (但是这也会直接影响到你的 BaseApplication 的性能)
 //                case TRIM_MEMORY_RUNNING_LOW:
 
 
-            //设备运行特别慢, 当前 App 还不会被杀死, 但是系统已经把 LRU 列表中的大多数进程都已经杀死, 因此你应该立即释放所有非必须的资源
+            //设备运行特别慢, 当前 BaseApplication 还不会被杀死, 但是系统已经把 LRU 列表中的大多数进程都已经杀死, 因此你应该立即释放所有非必须的资源
             //如果系统不能回收到足够的 RAM 数量, 系统将会清除所有的 LRU 列表中的进程, 并且开始杀死那些之前被认为不应该杀死的进程, 例如那个包含了一个运行态 Service 的进程
 //                case TRIM_MEMORY_RUNNING_CRITICAL:
 
 
-            //状态2. 当前 App UI 不再可见, 这是一个回收大个资源的好时机
+            //状态2. 当前 BaseApplication UI 不再可见, 这是一个回收大个资源的好时机
 //                case TRIM_MEMORY_UI_HIDDEN:
 
 
-            //状态3. 当前的 App 进程被置于 Background LRU 列表中
-            //进程位于 LRU 列表的上端, 尽管你的 App 进程并不是处于被杀掉的高危险状态, 但系统可能已经开始杀掉 LRU 列表中的其他进程了
-            //你应该释放那些容易恢复的资源, 以便于你的进程可以保留下来, 这样当用户回退到你的 App 的时候才能够迅速恢复
+            //状态3. 当前的 BaseApplication 进程被置于 Background LRU 列表中
+            //进程位于 LRU 列表的上端, 尽管你的 BaseApplication 进程并不是处于被杀掉的高危险状态, 但系统可能已经开始杀掉 LRU 列表中的其他进程了
+            //你应该释放那些容易恢复的资源, 以便于你的进程可以保留下来, 这样当用户回退到你的 BaseApplication 的时候才能够迅速恢复
 //                case TRIM_MEMORY_BACKGROUND:
 
 
@@ -242,8 +242,8 @@ public class AppProxy implements App, AppLifecycles {
 //                case TRIM_MEMORY_MODERATE:
 
 
-            //系统正运行与低内存的状态并且你的进程正处于 LRU 列表中最容易被杀掉的位置, 你应该释放任何不影响你的 App 恢复状态的资源
-            //低于 API 14 的 App 可以使用 onLowMemory 回调
+            //系统正运行与低内存的状态并且你的进程正处于 LRU 列表中最容易被杀掉的位置, 你应该释放任何不影响你的 BaseApplication 恢复状态的资源
+            //低于 API 14 的 BaseApplication 可以使用 onLowMemory 回调
 //                case TRIM_MEMORY_COMPLETE:
         }
 
@@ -261,7 +261,7 @@ public class AppProxy implements App, AppLifecycles {
          */
         @Override
         public void onLowMemory() {
-            //系统正运行与低内存的状态并且你的进程正处于 LRU 列表中最容易被杀掉的位置, 你应该释放任何不影响你的 App 恢复状态的资源
+            //系统正运行与低内存的状态并且你的进程正处于 LRU 列表中最容易被杀掉的位置, 你应该释放任何不影响你的 BaseApplication 恢复状态的资源
         }
     }
 

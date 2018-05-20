@@ -18,6 +18,8 @@ import com.xzxj.frame.utils.FrameUtils;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
 
@@ -34,6 +36,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     protected final String TAG = this.getClass().getSimpleName();
     private final BehaviorSubject<FragmentEvent> mLifecycleSubject = BehaviorSubject.create();
     private Cache<String, Object> mCache;
+    private Unbinder mUnbinder;
+
     @Inject
     @Nullable
     protected P mPresenter;//如果当前页面逻辑简单, Presenter 可以为 null
@@ -61,10 +65,19 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
         return initView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //绑定到butterknife
+        mUnbinder = ButterKnife.bind(this,view);
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mUnbinder != null && mUnbinder != Unbinder.EMPTY)
+            mUnbinder.unbind();
+        this.mUnbinder = null;
         if (mPresenter != null) mPresenter.onDestroy();//释放资源
         this.mPresenter = null;
     }

@@ -110,7 +110,7 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     api rootProject.ext.dependencies["androideventbus"]
     api rootProject.ext.dependencies["gson"]
-    api rootProject.ext.dependencies["timber"]
+    api rootProject.ext.dependencies["logger"]
 
     //test
     testImplementation rootProject.ext.dependencies["junit"]

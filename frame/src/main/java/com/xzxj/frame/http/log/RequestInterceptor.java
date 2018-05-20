@@ -2,8 +2,9 @@ package com.xzxj.frame.http.log;
 
 import android.support.annotation.Nullable;
 
-import com.xzxj.frame.injection.module.GlobalConfigModule;
+import com.orhanobut.logger.Logger;
 import com.xzxj.frame.http.GlobalHttpHandler;
+import com.xzxj.frame.injection.module.GlobalConfigModule;
 import com.xzxj.frame.utils.CharacterHandler;
 import com.xzxj.frame.utils.ZipHelper;
 
@@ -25,7 +26,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
-import timber.log.Timber;
 
 /**
  * <pre>
@@ -81,7 +81,7 @@ public class RequestInterceptor implements Interceptor {
         try {
             originalResponse = chain.proceed(request);
         } catch (Exception e) {
-            Timber.w("Http Error: " + e);
+            Logger.w("Http Error: " + e);
             throw e;
         }
         long t2 = logResponse ? System.nanoTime() : 0;

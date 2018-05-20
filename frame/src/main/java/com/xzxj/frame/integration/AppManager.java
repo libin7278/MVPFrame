@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
 import com.xzxj.frame.base.proxy.AppLifecycles;
 import com.xzxj.frame.widget.Snacker;
 import com.xzxj.frame.widget.Toaster;
@@ -25,8 +26,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import timber.log.Timber;
 
 /**
  * <pre>
@@ -99,7 +98,7 @@ public final class AppManager {
                 appExit();
                 break;
             default:
-                Timber.tag(TAG).w("The message.what not match");
+                Logger.w("The message.what not match");
                 break;
         }
         if (mHandleListener != null) {
@@ -122,7 +121,7 @@ public final class AppManager {
     /**
      * 提供给外部扩展 {@link AppManager} 的 {@link #onReceive} 方法(远程遥控 {@link AppManager} 的功能)
      * 建议在 {@link ConfigModule#injectAppLifecycle(Context, List)} 中
-     * 通过 {@link AppLifecycles#onCreate(Application)} 在 App 初始化时,使用此方法传入自定义的 {@link HandleListener}
+     * 通过 {@link AppLifecycles#onCreate(Application)} 在 BaseApplication 初始化时,使用此方法传入自定义的 {@link HandleListener}
      *
      * @param handleListener
      */
@@ -147,7 +146,7 @@ public final class AppManager {
      */
     public void showSnackbar(String message, boolean isLong) {
         if (getCurrentActivity() == null) {
-            Timber.tag(TAG).w("mCurrentActivity == null when showSnackbar(String,boolean)");
+            Logger.w("mCurrentActivity == null when showSnackbar(String,boolean)");
             return;
         }
         View view = getCurrentActivity().getWindow().getDecorView().findViewById(android.R.id.content);
@@ -162,7 +161,7 @@ public final class AppManager {
      */
     public void startActivity(Intent intent) {
         if (getTopActivity() == null) {
-            Timber.tag(TAG).w("mCurrentActivity == null when startActivity(Intent)");
+            Logger.w("mCurrentActivity == null when startActivity(Intent)");
             //如果没有前台的activity就使用new_task模式启动activity
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mApplication.startActivity(intent);
@@ -221,7 +220,7 @@ public final class AppManager {
     /**
      * 将在前台的 {@link Activity} 赋值给 {@code currentActivity}, 注意此方法是在 {@link Activity#onResume} 方法执行时将栈顶的 {@link Activity} 赋值给 {@code currentActivity}
      * 所以在栈顶的 {@link Activity} 执行 {@link Activity#onCreate} 方法时使用 {@link #getCurrentActivity()} 获取的就不是当前栈顶的 {@link Activity}, 可能是上一个 {@link Activity}
-     * 如果在 App 启动第一个 {@link Activity} 执行 {@link Activity#onCreate} 方法时使用 {@link #getCurrentActivity()} 则会出现返回为 {@code null} 的情况
+     * 如果在 BaseApplication 启动第一个 {@link Activity} 执行 {@link Activity#onCreate} 方法时使用 {@link #getCurrentActivity()} 则会出现返回为 {@code null} 的情况
      * 想避免这种情况请使用 {@link #getTopActivity()}
      *
      * @param currentActivity
@@ -232,13 +231,13 @@ public final class AppManager {
 
     /**
      * 获取在前台的 {@link Activity} (保证获取到的 {@link Activity} 正处于可见状态, 即未调用 {@link Activity#onStop()}), 获取的 {@link Activity} 存续时间
-     * 是在 {@link Activity#onStop()} 之前, 所以如果当此 {@link Activity} 调用 {@link Activity#onStop()} 方法之后, 没有其他的 {@link Activity} 回到前台(用户返回桌面或者打开了其他 App 会出现此状况)
+     * 是在 {@link Activity#onStop()} 之前, 所以如果当此 {@link Activity} 调用 {@link Activity#onStop()} 方法之后, 没有其他的 {@link Activity} 回到前台(用户返回桌面或者打开了其他 BaseApplication 会出现此状况)
      * 这时调用 {@link #getCurrentActivity()} 有可能返回 {@code null}, 所以请注意使用场景和 {@link #getTopActivity()} 不一样
      * <p>
      * Example usage:
      * 使用场景比较适合, 只需要在可见状态的 {@link Activity} 上执行的操作
      * 如当后台 {@link Service} 执行某个任务时, 需要让前台 {@link Activity} ,做出某种响应操作或其他操作,如弹出 {@link Dialog}, 这时在 {@link Service} 中就可以使用 {@link #getCurrentActivity()}
-     * 如果返回为 {@code null}, 说明没有前台 {@link Activity} (用户返回桌面或者打开了其他 App 会出现此状况), 则不做任何操作, 不为 {@code null}, 则弹出 {@link Dialog}
+     * 如果返回为 {@code null}, 说明没有前台 {@link Activity} (用户返回桌面或者打开了其他 BaseApplication 会出现此状况), 则不做任何操作, 不为 {@code null}, 则弹出 {@link Dialog}
      *
      * @return
      */
@@ -248,7 +247,7 @@ public final class AppManager {
 
     /**
      * 获取最近启动的一个 {@link Activity}, 此方法不保证获取到的 {@link Activity} 正处于前台可见状态
-     * 即使 App 进入后台或在这个 {@link Activity} 中打开一个之前已经存在的 {@link Activity}, 这时调用此方法
+     * 即使 BaseApplication 进入后台或在这个 {@link Activity} 中打开一个之前已经存在的 {@link Activity}, 这时调用此方法
      * 还是会返回这个最近启动的 {@link Activity}, 因此基本不会出现 {@code null} 的情况
      * 比较适合大部分的使用场景, 如 startActivity
      * <p>
@@ -258,7 +257,7 @@ public final class AppManager {
      */
     public Activity getTopActivity() {
         if (mActivityList == null) {
-            Timber.tag(TAG).w("mActivityList == null when getTopActivity()");
+            Logger.w("mActivityList == null when getTopActivity()");
             return null;
         }
         return mActivityList.size() > 0 ? mActivityList.get(mActivityList.size() - 1) : null;
@@ -297,7 +296,7 @@ public final class AppManager {
      */
     public void removeActivity(Activity activity) {
         if (mActivityList == null) {
-            Timber.tag(TAG).w("mActivityList == null when removeActivity(Activity)");
+            Logger.w("mActivityList == null when removeActivity(Activity)");
             return;
         }
         synchronized (AppManager.class) {
@@ -314,7 +313,7 @@ public final class AppManager {
      */
     public Activity removeActivity(int location) {
         if (mActivityList == null) {
-            Timber.tag(TAG).w("mActivityList == null when removeActivity(int)");
+            Logger.w("mActivityList == null when removeActivity(int)");
             return null;
         }
         synchronized (AppManager.class) {
@@ -332,7 +331,7 @@ public final class AppManager {
      */
     public void killActivity(Class<?> activityClass) {
         if (mActivityList == null) {
-            Timber.tag(TAG).w("mActivityList == null when killActivity(Class)");
+            Logger.w("mActivityList == null when killActivity(Class)");
             return;
         }
         synchronized (AppManager.class) {
@@ -357,7 +356,7 @@ public final class AppManager {
      */
     public boolean activityInstanceIsLive(Activity activity) {
         if (mActivityList == null) {
-            Timber.tag(TAG).w("mActivityList == null when activityInstanceIsLive(Activity)");
+            Logger.w("mActivityList == null when activityInstanceIsLive(Activity)");
             return false;
         }
         return mActivityList.contains(activity);
@@ -372,7 +371,7 @@ public final class AppManager {
      */
     public boolean activityClassIsLive(Class<?> activityClass) {
         if (mActivityList == null) {
-            Timber.tag(TAG).w("mActivityList == null when activityClassIsLive(Class)");
+            Logger.w("mActivityList == null when activityClassIsLive(Class)");
             return false;
         }
         for (Activity activity : mActivityList) {
@@ -392,7 +391,7 @@ public final class AppManager {
      */
     public Activity findActivity(Class<?> activityClass) {
         if (mActivityList == null) {
-            Timber.tag(TAG).w("mActivityList == null when findActivity(Class)");
+            Logger.w("mActivityList == null when findActivity(Class)");
             return null;
         }
         for (Activity activity : mActivityList) {
@@ -467,7 +466,7 @@ public final class AppManager {
     /**
      * 退出应用程序
      * <p>
-     * 此方法经测试在某些机型上并不能完全杀死 App 进程, 几乎试过市面上大部分杀死进程的方式, 但都发现没卵用, 所以此
+     * 此方法经测试在某些机型上并不能完全杀死 BaseApplication 进程, 几乎试过市面上大部分杀死进程的方式, 但都发现没卵用, 所以此
      * 方法如果不能百分之百保证能杀死进程, 就不能贸然调用 {@link #release()} 释放资源, 否则会造成其他问题, 如果您
      * 有测试通过的并能适用于绝大多数机型的杀死进程的方式, 望告知
      */

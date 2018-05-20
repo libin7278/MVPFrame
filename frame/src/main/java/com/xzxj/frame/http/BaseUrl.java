@@ -8,7 +8,7 @@ import okhttp3.HttpUrl;
  *     blog  : https://blog.csdn.net/github_33304260
  *     time  : 2018/5/7
  *     email : 524607562@qq.com
- *     desc  : 针对于 BaseUrl 在 App 启动时不能确定,需要请求服务器接口动态获取的应用场景
+ *     desc  : 针对于 BaseUrl 在 BaseApplication 启动时不能确定,需要请求服务器接口动态获取的应用场景
  * </pre>
  */
 public interface BaseUrl {

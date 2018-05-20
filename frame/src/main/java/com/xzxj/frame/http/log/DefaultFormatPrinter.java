@@ -2,6 +2,7 @@ package com.xzxj.frame.http.log;
 
 import android.text.TextUtils;
 
+import com.orhanobut.logger.Logger;
 import com.xzxj.frame.injection.module.GlobalConfigModule;
 import com.xzxj.frame.utils.CharacterHandler;
 
@@ -9,7 +10,6 @@ import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.Request;
-import timber.log.Timber;
 
 /**
  * <pre>
@@ -62,11 +62,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
         final String requestBody = LINE_SEPARATOR + BODY_TAG + LINE_SEPARATOR + bodyString;
         final String tag = getTag(true);
 
-        Timber.tag(tag).i(REQUEST_UP_LINE);
+        Logger.i(REQUEST_UP_LINE);
         logLines(tag, new String[]{URL_TAG + request.url()}, false);
         logLines(tag, getRequest(request), true);
         logLines(tag, requestBody.split(LINE_SEPARATOR), true);
-        Timber.tag(tag).i(END_LINE);
+        Logger.i(END_LINE);
     }
 
     /**
@@ -78,11 +78,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
     public void printFileRequest(Request request) {
         final String tag = getTag(true);
 
-        Timber.tag(tag).i(REQUEST_UP_LINE);
+        Logger.i(REQUEST_UP_LINE);
         logLines(tag, new String[]{URL_TAG + request.url()}, false);
         logLines(tag, getRequest(request), true);
         logLines(tag, OMITTED_REQUEST, true);
-        Timber.tag(tag).i(END_LINE);
+        Logger.i(END_LINE);
     }
 
     /**
@@ -108,11 +108,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
         final String tag = getTag(false);
         final String[] urlLine = {URL_TAG + responseUrl, N};
 
-        Timber.tag(tag).i(RESPONSE_UP_LINE);
+        Logger.i(RESPONSE_UP_LINE);
         logLines(tag, urlLine, true);
         logLines(tag, getResponse(headers, chainMs, code, isSuccessful, segments, message), true);
         logLines(tag, responseBody.split(LINE_SEPARATOR), true);
-        Timber.tag(tag).i(END_LINE);
+        Logger.i(END_LINE);
     }
 
     /**
@@ -132,11 +132,11 @@ public class DefaultFormatPrinter implements FormatPrinter {
         final String tag = getTag(false);
         final String[] urlLine = {URL_TAG + responseUrl, N};
 
-        Timber.tag(tag).i(RESPONSE_UP_LINE);
+        Logger.i(RESPONSE_UP_LINE);
         logLines(tag, urlLine, true);
         logLines(tag, getResponse(headers, chainMs, code, isSuccessful, segments, message), true);
         logLines(tag, OMITTED_RESPONSE, true);
-        Timber.tag(tag).i(END_LINE);
+        Logger.i(END_LINE);
     }
 
 
@@ -155,7 +155,7 @@ public class DefaultFormatPrinter implements FormatPrinter {
                 int start = i * MAX_LONG_SIZE;
                 int end = (i + 1) * MAX_LONG_SIZE;
                 end = end > line.length() ? line.length() : end;
-                Timber.tag(resolveTag(tag)).i(DEFAULT_LINE + line.substring(start, end));
+                Logger.i(DEFAULT_LINE + line.substring(start, end));
             }
         }
     }

@@ -2,6 +2,7 @@ package com.xzxj.frame.utils;
 
 import android.Manifest;
 
+import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -12,7 +13,6 @@ import java.util.List;
 import io.reactivex.annotations.NonNull;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
-import timber.log.Timber;
 
 /**
  * <pre>
@@ -75,17 +75,17 @@ public class PermissionUtil {
                             for (Permission p : permissions) {
                                 if (!p.granted) {
                                     if (p.shouldShowRequestPermissionRationale) {
-                                        Timber.tag(TAG).d("Request permissions failure");
+                                        Logger.d("Request permissions failure");
                                         requestPermission.onRequestPermissionFailure(Arrays.asList(p.name));
                                         return;
                                     } else {
-                                        Timber.tag(TAG).d("Request permissions failure with ask never again");
+                                        Logger.d("Request permissions failure with ask never again");
                                         requestPermission.onRequestPermissionFailureWithAskNeverAgain(Arrays.asList(p.name));
                                         return;
                                     }
                                 }
                             }
-                            Timber.tag(TAG).d("Request permissions success");
+                            Logger.d("Request permissions success");
                             requestPermission.onRequestPermissionSuccess();
                         }
                     });

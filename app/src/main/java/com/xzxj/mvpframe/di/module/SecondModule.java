@@ -1,8 +1,8 @@
-package com.xzxj.mvpframe.module;
+package com.xzxj.mvpframe.di.module;
 
-import com.xzxj.frame.injection.scope.ActivityScope;
-import com.xzxj.mvpframe.mvp.main.MainContract;
-import com.xzxj.mvpframe.mvp.main.MainModel;
+import com.xzxj.frame.injection.scope.FragmentScope;
+import com.xzxj.mvpframe.mvp.second.SecondContract;
+import com.xzxj.mvpframe.mvp.second.SecondModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -17,27 +17,27 @@ import dagger.Provides;
  * </pre>
  */
 @Module
-public class MainModule {
-    private MainContract.View view;
+public class SecondModule {
+    private SecondContract.View view;
 
     /**
      * 构建 MainModule 时,将 View 的实现类传进来,这样就可以提供 View 的实现类给 Presenter
      *
      * @param view
      */
-    public MainModule(MainContract.View view) {
+    public SecondModule(SecondContract.View view) {
         this.view = view;
     }
 
-    @ActivityScope
+    @FragmentScope
     @Provides
-    MainContract.View provideUserView() {
+    SecondContract.View provideSecondView() {
         return this.view;
     }
 
-    @ActivityScope
+    @FragmentScope
     @Provides
-    MainContract.Model provideUserModel(MainModel model) {
+    SecondContract.Model provideSecondModel(SecondModel model) {
         return model;
     }
 }

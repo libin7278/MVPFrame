@@ -10,7 +10,9 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.orhanobut.logger.Logger;
 import com.xzxj.frame.http.imageloader.BaseImageLoaderStrategy;
+import com.xzxj.frame.http.imageloader.ImageConfig;
 import com.xzxj.frame.utils.Preconditions;
 
 import io.reactivex.Observable;
@@ -18,7 +20,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * <pre>
@@ -143,6 +144,6 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<ImageCo
 
     @Override
     public void applyGlideOptions(Context context, GlideBuilder builder) {
-        Timber.w("applyGlideOptions");
+        Logger.w("applyGlideOptions");
     }
 }

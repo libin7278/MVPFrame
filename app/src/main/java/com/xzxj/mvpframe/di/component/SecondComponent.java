@@ -16,9 +16,9 @@
 package com.xzxj.mvpframe.di.component;
 
 import com.xzxj.frame.injection.component.AppComponent;
-import com.xzxj.frame.injection.scope.ActivityScope;
-import com.xzxj.mvpframe.mvp.main.MainActivity;
-import com.xzxj.mvpframe.di.module.MainModule;
+import com.xzxj.frame.injection.scope.FragmentScope;
+import com.xzxj.mvpframe.di.module.SecondModule;
+import com.xzxj.mvpframe.mvp.second.SecondFragment;
 
 import dagger.Component;
 
@@ -31,8 +31,8 @@ import dagger.Component;
  *     desc  : 展示 Component 的用法
  * </pre>
  */
-@ActivityScope
-@Component(modules = MainModule.class, dependencies = AppComponent.class)
-public interface MainComponent {
-    void inject(MainActivity activity);
+@FragmentScope
+@Component(modules = SecondModule.class, dependencies = AppComponent.class)
+public interface SecondComponent {
+    void inject(SecondFragment fragment);
 }

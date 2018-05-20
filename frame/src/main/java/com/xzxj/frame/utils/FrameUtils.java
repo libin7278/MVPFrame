@@ -20,7 +20,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xzxj.frame.base.App;
+import com.xzxj.frame.base.BaseApplication;
 import com.xzxj.frame.injection.component.AppComponent;
 import com.xzxj.frame.integration.AppManager;
 
@@ -432,8 +432,8 @@ public class FrameUtils {
 
     public static AppComponent obtainAppComponentFromContext(Context context) {
         Preconditions.checkNotNull(context, "%s cannot be null", Context.class.getName());
-        Preconditions.checkState(context.getApplicationContext() instanceof App, "Application does not implements App");
-        return ((App) context.getApplicationContext()).getAppComponent();
+        Preconditions.checkState(context.getApplicationContext() instanceof BaseApplication, "Application does not implements BaseApplication");
+        return ((BaseApplication) context.getApplicationContext()).getAppComponent();
     }
 
 }

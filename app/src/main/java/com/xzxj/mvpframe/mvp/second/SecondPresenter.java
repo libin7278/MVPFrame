@@ -1,4 +1,4 @@
-package com.xzxj.mvpframe.mvp.main;
+package com.xzxj.mvpframe.mvp.second;
 
 import android.app.Application;
 
@@ -18,7 +18,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
  *     desc  : 展示presenter用法
  * </pre>
  */
-public class MainPresenter extends BasePresenter<MainContract.Model, MainContract.View> {
+public class SecondPresenter extends BasePresenter<SecondContract.Model, SecondContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -27,7 +27,7 @@ public class MainPresenter extends BasePresenter<MainContract.Model, MainContrac
     Application mApplication;
 
     @Inject
-    public MainPresenter(MainContract.Model model, MainContract.View rootView) {
+    public SecondPresenter(SecondContract.Model model, SecondContract.View rootView) {
         super(model, rootView);
     }
 
@@ -39,7 +39,7 @@ public class MainPresenter extends BasePresenter<MainContract.Model, MainContrac
         this.mApplication = null;
     }
 
-    public void getVersion(){
-        mView.showVersion(mModel.getVersion());
+    public void getDate(){
+        mView.showData(mModel.getDate());
     }
 }

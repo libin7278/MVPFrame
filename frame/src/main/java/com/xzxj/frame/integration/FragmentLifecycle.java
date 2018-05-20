@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
 import com.xzxj.frame.base.proxy.FragmentProxy;
 import com.xzxj.frame.base.proxy.FragmentProxyImpl;
 import com.xzxj.frame.base.proxy.IFragment;
@@ -16,8 +17,6 @@ import com.xzxj.frame.utils.Preconditions;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import timber.log.Timber;
 
 /**
  * <pre>
@@ -37,7 +36,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentAttached(FragmentManager fm, Fragment f, Context context) {
-        Timber.w(f.toString() + " - onFragmentAttached");
+        Logger.w(f.toString() + " - onFragmentAttached");
         if (f instanceof IFragment) {
             FragmentProxy fragmentProxy = fetchFragmentProxy(f);
             if (fragmentProxy == null || !fragmentProxy.isAdded()) {
@@ -53,7 +52,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
-        Timber.w(f.toString() + " - onFragmentCreated");
+        Logger.w(f.toString() + " - onFragmentCreated");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onCreate(savedInstanceState);
@@ -62,7 +61,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentViewCreated(FragmentManager fm, Fragment f, View v, Bundle savedInstanceState) {
-        Timber.w(f.toString() + " - onFragmentViewCreated");
+        Logger.w(f.toString() + " - onFragmentViewCreated");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onCreateView(v, savedInstanceState);
@@ -71,7 +70,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentActivityCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
-        Timber.w(f.toString() + " - onFragmentActivityCreated");
+        Logger.w(f.toString() + " - onFragmentActivityCreated");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onActivityCreate(savedInstanceState);
@@ -80,7 +79,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentStarted(FragmentManager fm, Fragment f) {
-        Timber.w(f.toString() + " - onFragmentStarted");
+        Logger.w(f.toString() + " - onFragmentStarted");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onStart();
@@ -89,7 +88,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentResumed(FragmentManager fm, Fragment f) {
-        Timber.w(f.toString() + " - onFragmentResumed");
+        Logger.w(f.toString() + " - onFragmentResumed");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onResume();
@@ -98,7 +97,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentPaused(FragmentManager fm, Fragment f) {
-        Timber.w(f.toString() + " - onFragmentPaused");
+        Logger.w(f.toString() + " - onFragmentPaused");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onPause();
@@ -107,7 +106,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentStopped(FragmentManager fm, Fragment f) {
-        Timber.w(f.toString() + " - onFragmentStopped");
+        Logger.w(f.toString() + " - onFragmentStopped");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onStop();
@@ -116,7 +115,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentSaveInstanceState(FragmentManager fm, Fragment f, Bundle outState) {
-        Timber.w(f.toString() + " - onFragmentSaveInstanceState");
+        Logger.w(f.toString() + " - onFragmentSaveInstanceState");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onSaveInstanceState(outState);
@@ -125,7 +124,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
-        Timber.w(f.toString() + " - onFragmentViewDestroyed");
+        Logger.w(f.toString() + " - onFragmentViewDestroyed");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onDestroyView();
@@ -134,7 +133,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
-        Timber.w(f.toString() + " - onFragmentDestroyed");
+        Logger.w(f.toString() + " - onFragmentDestroyed");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onDestroy();
@@ -143,7 +142,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
 
     @Override
     public void onFragmentDetached(FragmentManager fm, Fragment f) {
-        Timber.w(f.toString() + " - onFragmentDetached");
+        Logger.w(f.toString() + " - onFragmentDetached");
         FragmentProxy fragmentDelegate = fetchFragmentProxy(f);
         if (fragmentDelegate != null) {
             fragmentDelegate.onDetach();
